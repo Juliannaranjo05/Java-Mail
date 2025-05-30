@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Medicamento</title>
+</head>
+<body>
+    <h1>Formulario de Registro</h1>
+
+    <form th:action="@{/formulario}" th:object="${paciente}" method="post">
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required><br><br>
+
+        <label>Correo:</label>
+        <input type="email" th:field="*{correo}" required><br><br>
+
+        <label>Selecciona un medicamento:</label>
+        <select name="medicamentoId" required>
+            <option th:each="med : ${medicamentos}" 
+                    th:value="${med.id}" 
+                    th:text="${med.nombre}">
+            </option>
+        </select><br><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <p th:if="${#httpServletRequest.getParameter('exito') != null}">
+        ✅ Registro exitoso. Te llegarán recordatorios por correo.
+    </p>
+</body>
+</html>
